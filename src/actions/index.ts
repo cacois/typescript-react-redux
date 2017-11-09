@@ -1,6 +1,4 @@
 import * as redux from 'redux';
-
-import { api } from '../api';
 import * as state from '../reducers/index';
 
 // Action Type Definitions

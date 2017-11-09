@@ -20,7 +20,7 @@ interface ICounterState {
 
 class Counter extends React.Component<ICounterProps & ICounterOwnProps, ICounterState> {
 
-  constructor(props) {
+  constructor(props: any) {
     super(props);
     this.increment = this.increment.bind(this);
 }

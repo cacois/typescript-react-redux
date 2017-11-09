@@ -20,7 +20,6 @@ const store: redux.Store<State> = redux.createStore(
 
 const Root: React.SFC<{}> = () => (
   <Provider store={store}>
-    {/* FIXME: <Counter />*/}
     <Counter />
   </Provider>
 );
