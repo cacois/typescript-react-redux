@@ -1,99 +1,60 @@
-import * as React from 'react'
-import * as redux from 'redux'
-import { connect } from 'react-redux'
+import * as React from 'react';
+import * as redux from 'redux';
+import { connect } from 'react-redux';
+import { ICounter, State } from '../state';
+import { Action, incrementCounter, resetCounter } from '../actions';
 
-import {
-  incrementCounter,
-  loadCount,
-  saveCount,
-} from '../actions'
+import * as state from '../reducers';
 
-import * as state from '../reducers'
-
-import loadable from '../decorators/loadable'
-
-type OwnProps = {
+interface ICounterProps {
 }
 
-type ConnectedState = {
-  counter: { value: number }
-  isSaving: boolean,
-  isLoading: boolean,
-  error: string,
+interface ICounterOwnProps {
+  increment(amount: number): Action;
+  reset(): Action;
+  counter: ICounter;
 }
 
-type ConnectedDispatch = {
-  increment: (n: number) => void
-  save: (n: number) => void
-  load: () => void
+interface ICounterState {
 }
 
-const mapStateToProps = (state: state.All, ownProps: OwnProps): ConnectedState => ({
-  counter: state.counter,
-  isSaving: state.isSaving,
-  isLoading: state.isLoading,
-  error: state.error,
-})
+class Counter extends React.Component<ICounterProps & ICounterOwnProps, ICounterState> {
 
-const mapDispatchToProps = (dispatch: redux.Dispatch<state.All>): ConnectedDispatch => ({
-  increment: (n: number) =>
-    dispatch(incrementCounter(n)),
-  load: () =>
-    dispatch(loadCount()),
-  save: (value: number) =>
-    dispatch(saveCount({ value })),
-})
+  constructor(props) {
+    super(props);
+    this.increment = this.increment.bind(this);
+}
 
-class PureCounter extends React.Component<ConnectedState & ConnectedDispatch & OwnProps, {}> {
-
-  _onClickIncrement = (e: React.SyntheticEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-    this.props.increment(1)
-  }
-
-  _onClickSave = (e: React.SyntheticEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-    if (!this.props.isSaving) {
-      this.props.save(this.props.counter.value)
-    }
-  }
-
-  _onClickLoad = (e: React.SyntheticEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-    if (!this.props.isLoading) {
-      this.props.load()
-    }
+  increment(e: any) {
+    e.preventDefault();
+    this.props.increment(1);
   }
 
   render () {
-    const { counter, isSaving, isLoading, error } = this.props
-    return <div>
-      <div className='hero'>
-        <strong>{counter.value}</strong>
+    const { counter } = this.props;
+
+    return (
+      <div>
+        <div className='hero'>
+          <strong>{counter.value}</strong>
+        </div>
+        <form>
+          <button ref='increment' onClick={this.increment}>increment!</button>
+          <button ref='reset' onClick={this.props.reset}>Reset</button>
+        </form>
       </div>
-      <form>
-        <button ref='increment' onClick={this._onClickIncrement}>click me!</button>
-        <button ref='save' disabled={isSaving} onClick={this._onClickSave}>{isSaving ? 'saving...' : 'save'}</button>
-        <button ref='load' disabled={isLoading} onClick={this._onClickLoad}>{ isLoading ? 'loading...' : 'load'}</button>
-        { error ? <div className='error'>{error}</div> : null }
-        <pre>
-          {JSON.stringify({
-            counter,
-            isSaving,
-            isLoading,
-          }, null, 2)}
-        </pre>
-      </form>
-    </div>
+    );
+
   }
 }
 
-const isLoading = (p: ConnectedState & ConnectedDispatch & OwnProps) =>
-  p.isLoading || p.isSaving
+function mapStateToProps(state: State) {
+  return {
+    counter: state.counter
+  };
+}
 
-// Invoke `loadable` manually pending decorator support
-// See: https://github.com/Microsoft/TypeScript/issues/4881
-const LoadableCounter = loadable(isLoading)(PureCounter)
-
-// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/8787
-export const Counter = connect(mapStateToProps, mapDispatchToProps)(LoadableCounter)
+export default connect(mapStateToProps, {
+  increment: incrementCounter,
+  reset: resetCounter
+})(Counter);
