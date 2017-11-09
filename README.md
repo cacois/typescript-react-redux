@@ -1,6 +1,18 @@
+<<<<<<< Updated upstream
 # What we're going to build
 
 Starting from the `start` branch, which I've paired down, we're going to add a stateful counter to the main page. 
+=======
+<<<<<<< Updated upstream
+# Typescript + React + Redux
+=======
+# What we're going to build
+
+Starting from the `start` branch, which I've paired down, we're going to add a stateful counter to the main page. So clone the repo, and checkout the `start` branch:
+
+    $ git clone https://github.com/cacois/typescript-react-redux
+    $ git fetch && git checkout start
+>>>>>>> Stashed changes
 
 First, build and start the app:
 
@@ -21,6 +33,10 @@ You should see a blank page with the title "Counter Demo". We're going to make t
 
 
 # The original tutorial
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 
 All the concepts and tooling you'll need to get started, packed into one tiny
 counter.
