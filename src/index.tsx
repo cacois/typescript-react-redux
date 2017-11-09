@@ -1,26 +1,30 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-import * as redux from 'redux'
-import { Provider } from 'react-redux'
-import thunk from 'redux-thunk'
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import * as redux from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 
-import * as state from './reducers'
+import { State } from './state';
+import { reducers } from './reducers';
+import Counter from './components/counter';
 
-import { Counter } from './components/counter'
+const enhancer = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(
+  redux.applyMiddleware(thunk)
+);
 
-const store: redux.Store<state.All> = redux.createStore(
-  state.reducers,
-  {} as state.All,
-  redux.applyMiddleware(thunk),
-)
+const store: redux.Store<State> = redux.createStore(
+  reducers,
+  {} as State,
+  enhancer
+);
 
 const Root: React.SFC<{}> = () => (
   <Provider store={store}>
     <Counter />
   </Provider>
-)
+);
 
 window.addEventListener('DOMContentLoaded', () => {
-  const rootEl = document.getElementById('redux-app-root')
-  ReactDOM.render(<Root />, rootEl)
-})
+  const rootEl = document.getElementById('redux-app-root');
+  ReactDOM.render(<Root />, rootEl);
+});

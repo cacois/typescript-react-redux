@@ -24,10 +24,7 @@
             true,
             "single"
         ],
-        "semicolon": [
-            true,
-            "never"
-        ],
+        "semicolon": true,
         "triple-equals": [
             true,
             "allow-null-check"

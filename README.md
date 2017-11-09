@@ -1,4 +1,26 @@
-# Typescript + React + Redux
+# What we're going to build
+
+Starting from the `start` branch, which I've paired down, we're going to add a stateful counter to the main page. 
+
+First, build and start the app:
+
+    $ npm run build
+    $ npm start
+
+Start in index.html - everything always starts with index.html. It lays out the highest level DOM structure and includes 
+
+    <div id="redux-app-root"></div>
+    
+which just puts in a specific div we can hook into later. Then it does this:
+
+    <script src="dist/bundle.js"></script>
+
+which loads in all of the JS our app has been bundled into.
+
+You should see a blank page with the title "Counter Demo". We're going to make that title true. 
+
+
+# The original tutorial
 
 All the concepts and tooling you'll need to get started, packed into one tiny
 counter.
