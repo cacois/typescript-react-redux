@@ -9,8 +9,13 @@ Starting from the `start` branch, which I've cut down to bare bones, we're going
 
 First, build and start the app:
 
+    $ npm i
     $ npm run build
     $ npm start
+
+If you want to set up a webpack watcher to reload when files are changed, run the following alongside `npm start` in another terminal/tab:
+
+    $ npm run watch
 
 Start in index.html - everything always starts with index.html. It lays out the highest level DOM structure and includes 
 

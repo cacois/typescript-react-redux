@@ -23,11 +23,17 @@ class Counter extends React.Component<ICounterProps & ICounterOwnProps, ICounter
   constructor(props: any) {
     super(props);
     this.increment = this.increment.bind(this);
+    this.reset = this.reset.bind(this);
 }
 
   increment(e: any) {
     e.preventDefault();
     this.props.increment(1);
+  }
+
+  reset(e: any) {
+    e.preventDefault();
+    this.props.reset();
   }
 
   render () {
@@ -40,7 +46,7 @@ class Counter extends React.Component<ICounterProps & ICounterOwnProps, ICounter
         </div>
         <form>
           <button ref='increment' onClick={this.increment}>increment!</button>
-          <button ref='reset' onClick={this.props.reset}>Reset</button>
+          <button ref='reset' onClick={this.reset}>Reset</button>
         </form>
       </div>
     );
