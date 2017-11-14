@@ -15,7 +15,7 @@ module.exports = {
     extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js']
   },
 
-  plugins: [ failPlugin ],
+  plugins: [ ],
 
   module: {
     loaders: [

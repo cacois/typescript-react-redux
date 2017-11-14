@@ -6,11 +6,16 @@ import thunk from 'redux-thunk';
 
 import { State } from './state';
 import { reducers } from './reducers';
-import Counter from './components/counter';
 
-const enhancer = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(
-  redux.applyMiddleware(thunk)
-);
+let enhancer: any;
+
+if (typeof(window) !== 'undefined' && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
+  enhancer = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(
+    redux.applyMiddleware(thunk)
+  );
+} else {
+  enhancer = redux.applyMiddleware(thunk);
+}
 
 const store: redux.Store<State> = redux.createStore(
   reducers,
